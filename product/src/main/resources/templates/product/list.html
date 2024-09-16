@@ -27,7 +27,7 @@
                 <td class="tdT" width="40px"> 중량 </td> <td class="tdT" width="100px"> 창호넘버 </td> <td class="tdT"width="51px"> 이미지 </td> <td> 삭제 </td>
             </tr>
             <tr th:each="li, cnt : ${li}">
-                <td class="tdL"> [[${cnt.index+1}]]</td>
+                <td class="tdL"> <a th:href="@{/product/edit(idx=${li.idx})}"> [[${cnt.index+1}]] </a></td>
                 <td class="tdL"> [[${li.SiteName}]] </td>
                 <td class="tdL"> [[${li.Type}]] </td>
                 <td class="tdL"> [[${li.ProductCodeList}]] </td>

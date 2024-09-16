@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<div  th:replace="include/top"></div>
+<style>
+    .hidden { display: none;}
+</style>
+<body>
+<section>
+    <br>
+
+    <div align="center">
+        <h2> 수정하기 </h2>
+    </div>
+    <hr>
+    <br><br>
+    <div align="center">
+        <form action="/product/insert" method="post" enctype="multipart/form-data">
+        <table width="420px" border="1px">
+            <tr  th:each="li : ${li}">
+                <td colspan="2" height="210px" align="center"> <!--미리보기 이미지-->
+                    <span id="noImageText">이미지가 등록되지 않았습니다.</span>
+                    <img id="preview" src="" style="max-width: 100%; max-height: 210px; display: none;">
+                </td>
+            </tr>
+            <tr><td class="tdT"> 현장명 </td><td><input size="38px" type="text" name="SiteName" th:value="${li.SiteName}"></td></tr>
+            <tr>
+                <td class="tdT">이미지</td>
+                <td>
+                    <input type="file" name="Image" id="uploadFile" onchange="previewImage(event)" style="display:none;">
+                    <label for ="uploadFile" style="cursor: pointer;">
+                        <span style="background-color: #000; color: #fff; padding: 5px 10px; border-radius: 5px;">이미지 등록하기</span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td class="tdT">타입</td>
+                <td align="left">
+                    <label>
+                        <input type="radio" name="type" value="히든"> 히든 <br>
+                        <input type="radio" name="type" value="캡"> 캡 <br>
+                        <input type="radio" name="type" value="해당사항 없음"> 해당사항 없음
+                    </label>
+                </td>
+            </tr>
+            <tr><td class="tdT"> 제품코드목록 </td><td> <input type="text" name="ProductCodeList" size="35px" > </td></tr>
+            <tr><td class="tdT"> ITEM </td>
+                <td>
+                    <select name="ITEM" id="itemSelect" onchange="toggleOtherInput()">
+                        <option value="MUL">MUL</option>
+                        <option value="TRA">TRA</option>
+                        <option value="기타">기타</option>
+                    </select>
+                    <input type="text" id="otherInput" class="hidden" size="25.5px" placeholder="내용을 입력하세요.">
+                </td>
+            </tr>
+            <tr><td class="tdT"> 재단 사이즈 </td><td> <input name="CutSize" size="35px" type="text"> </td></tr>
+            <tr><td class="tdT"> 수량 </td><td> <input name="Quantity" size="35px" type="text"> </td></tr>
+            <tr><td class="tdT"> 창SET </td><td> <input name="WindowSET" size="35px" type="text"> </td></tr>
+            <tr><td class="tdT"> 단중 </td><td> <input name="SingleMiddle" size="35px" type="text"> </td></tr>
+            <tr><td class="tdT"> 중량 </td><td> <input name="Weight" size="35px" type="text"> </td></tr>
+            <tr><td class="tdT"> 창호넘버 </td><td> <input name="WindowNumber" size="35px" type="text" value="ACW-2.3.4.5.6"> </td></tr>
+            <tr>
+                <td colspan="2" align="center" class="">
+                    <a href="/output"><input type="button" value="리스트" class="btnBlack"></a> &nbsp;
+                    <input type="submit" value="저장하기" class="btnBlack"> &nbsp;
+                    <input type="reset" value="초기화" class="btnBlack" onClick="clearPreview()">
+                </td>
+            </tr>
+        </table>
+        </form>
+    </div>
+</section>
+
+
+<script>
+    function previewImage(event){
+        const preview = document.getElementById('preview');
+        const file = event.target.files[0];
+        const noImageText = document.getElementById('noImageText');
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                noImageText.style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = '';
+            preview.style.display = 'none';
+        }
+    }
+
+    function clearPreview() {
+        const preview = document.getElementById('preview');
+        preview.src = '';
+        noImageText.style.display = 'block';
+    }
+
+    function toggleOtherInput() {
+        const select = document.getElementById('itemSelect');
+        const otherInput = document.getElementById('otherInput');
+        if (select.value === '기타') {
+            otherInput.classList.remove('hidden');
+            otherInput.setAttribute('name', 'ITEM')
+            select.removeAttribute('name');
+        } else {
+            otherInput.classList.add('hidden');
+            otherInput.removeAttribute('name');
+            select.setAttribute('name', 'ITEM')
+        }
+    }
+</script>
+
+</body>
+</html>

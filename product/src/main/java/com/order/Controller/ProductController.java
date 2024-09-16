@@ -80,4 +80,10 @@ public class ProductController {
         service.delete(vo);
         return "redirect:/product/list";
     }
+
+    @GetMapping("/edit")
+    void ProductEdit(ProductVO vo, Model model){
+        System.out.println("=> ProductEdit : " + service.selectOne(vo));
+        model.addAttribute("li", service.selectOne(vo));
+    }
 }

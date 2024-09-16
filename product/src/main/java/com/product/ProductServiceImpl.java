@@ -25,4 +25,8 @@ public class ProductServiceImpl implements ProductService {
         return dao.select(vo);
     }
 
+    public List<ProductVO> selectOne(ProductVO vo) {
+        return dao.selectOne(vo);
+    }
+
 }

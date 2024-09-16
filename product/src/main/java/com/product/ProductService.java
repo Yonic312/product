@@ -8,4 +8,5 @@ public interface ProductService {
     void insert(ProductVO vo);
     void delete(ProductVO vo);
     List<ProductVO> select(ProductVO vo);
+    List<ProductVO> selectOne(ProductVO vo);
 }

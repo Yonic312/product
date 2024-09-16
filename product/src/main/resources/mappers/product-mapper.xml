@@ -20,4 +20,11 @@
         delete from product where idx = #{idx}
     </delete>
 
+    <select id="selectOne">
+        select idx, SiteName, Type, ProductCodeList, ITEM, CutSize, Quantity, WindowSET, SingleMiddle,
+               Weight,  WindowNumber, Image as 'StrImage' from product
+               where idx = #{idx}
+    </select>
+
+
 </mapper>
