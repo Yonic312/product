@@ -1,0 +1,75 @@
+@charset "UTF-8";
+
+/*
+header{
+    -webkit-text-stroke-width: 0.3px;
+    -webkit-text-stroke-color: #3FD9FC;
+    background: #83D3EF ; !* Background color *!
+    height: 60px; !* Height of the area *!
+    line-height: 70px; !* Line height: text height *!
+    color: #ffffff; !* Text color (RGB) *!
+    font-size: 28px; !* Text size *!
+    text-align: center; !* Text alignment *!
+    font-family: 'Black Han Sans'
+
+}*/
+
+.aTop {
+    text-decoration : none;
+    color : #000000;
+}
+
+.navHome{
+    background: #ced4da;
+    line-height: 30px;
+}
+
+section{
+    background : #ffffff;
+    min-height: 910px;
+    line-height: 30px;
+    font-size: 14px;
+}
+
+table{
+    /* color:d4d4d4; */
+    border-collapse: collapse;
+    text-align: center;
+}
+
+tr{
+    color : #000000;
+    /*     background-color: #F2F2F2; */
+    border: 5px #d4d4d4;
+}
+
+.trL{
+    color: #ffffff;
+    background-color: #ced4da;
+}
+
+.btnBlack{ /* input */
+    color: #ffffff;
+    background-color: black;
+}
+
+.tdBlue{ /* input */
+    color: #ffffff;
+    background-color: #ced4da;
+}
+
+tr{
+     text-align: left;
+}
+
+.tdT{
+    padding: 10px;
+    color: #ffffff;
+    background-color: #ced4da;
+}
+
+.tdL{
+    padding: 10px;
+}
+
+

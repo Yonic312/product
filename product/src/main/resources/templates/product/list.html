@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<div  th:replace="include/top"></div>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        function del(idx){
+            location.href="/product/delete?idx="+idx;
+        }
+    </script>
+<section>
+    <br>
+    <div align="center">
+    <h2> 목록보기 </h2>
+    </div>
+    <hr>
+    <br><br>
+    <div align="center">
+        <table border=1>
+            <tr class="trL">
+                <td class="tdT" width="30px"> 번호 </td> <td class="tdT" width="150px"> 현장명 </td> <td class="tdT" width="100px"> 타입 </td>
+                <td class="tdT" width="90px"> 제품코드목록 </td><td class="tdT" width="150px"> ITEM </td> <td class="tdT" width="80px"> 재단 사이즈 </td>
+                <td class="tdT" width="30px"> 수량 </td><td class="tdT" width="40px"> 창SET </td><td class="tdT" width="40px"> 단중 </td>
+                <td class="tdT" width="40px"> 중량 </td> <td class="tdT" width="100px"> 창호넘버 </td> <td class="tdT"width="51px"> 이미지 </td> <td> 삭제 </td>
+            </tr>
+            <tr th:each="li, cnt : ${li}">
+                <td class="tdL"> [[${cnt.index+1}]]</td>
+                <td class="tdL"> [[${li.SiteName}]] </td>
+                <td class="tdL"> [[${li.Type}]] </td>
+                <td class="tdL"> [[${li.ProductCodeList}]] </td>
+                <td class="tdL"> [[${li.ITEM}]] </td>
+                <td class="tdL"> [[${li.CutSize}]] </td>
+                <td class="tdL"> [[${li.Quantity}]] </td>
+                <td class="tdL"> [[${li.WindowSET}]] </td>
+                <td class="tdL"> [[${li.SingleMiddle}]] </td>
+                <td class="tdL"> [[${li.Weight}]] </td>
+                <td class="tdL"> [[${li.WindowNumber}]] </td>
+                <td class="tdL"> <img th:src="@{/product/file/{filename}(filename=${li.StrImage})}"  width="50" height="50"></td>
+                <td class="tdL"> <input type="button" value="삭제" th:onClick="'del(' + ${li.idx} + ')' "></td>
+            </tr>
+        </table>
+
+    </div>
+</section>
+</body>
+</html>
