@@ -1,22 +1,18 @@
 @charset "UTF-8";
 
-/*
+body{
+    margin: 0;
+    padding: 0;
+}
+
+
 header{
-    -webkit-text-stroke-width: 0.3px;
-    -webkit-text-stroke-color: #3FD9FC;
-    background: #83D3EF ; !* Background color *!
-    height: 60px; !* Height of the area *!
-    line-height: 70px; !* Line height: text height *!
-    color: #ffffff; !* Text color (RGB) *!
-    font-size: 28px; !* Text size *!
-    text-align: center; !* Text alignment *!
-    font-family: 'Black Han Sans'
-
-}*/
-
-.aTop {
-    text-decoration : none;
-    color : #000000;
+    background-color: #21222F;
+    position: fixed;
+    top: 0;
+    /* width: 100% */
+    left: 0;
+    right: 0;
 }
 
 .navHome{
@@ -27,7 +23,7 @@ header{
 section{
     background : #ffffff;
     min-height: 910px;
-    line-height: 30px;
+    /*line-height: 30px;*/
     font-size: 14px;
 }
 
@@ -35,6 +31,7 @@ table{
     /* color:d4d4d4; */
     border-collapse: collapse;
     text-align: center;
+    margin-left: 270px;
 }
 
 tr{
@@ -49,8 +46,21 @@ tr{
 }
 
 .btnBlack{ /* input */
+    font-weight: bold;
     color: #ffffff;
-    background-color: black;
+    background-color: #666666;
+    border: 0px;
+    width: 72px;
+    height: 30px;
+}
+
+.btnWhite{ /* input */
+    font-weight: bold;
+    color: #000000;
+    background-color: #ffffff;
+    border: 1px solid black;
+    width: 72px;
+    height: 30px;
 }
 
 .tdBlue{ /* input */
@@ -64,12 +74,75 @@ tr{
 
 .tdT{
     padding: 10px;
+    width: 150px;
+    color: #ffffff;
+    background-color: #ced4da;
+}
+
+.tdTL{
+    padding-left: 5px;
+    padding-right: 5px;
     color: #ffffff;
     background-color: #ced4da;
 }
 
 .tdL{
-    padding: 10px;
+    padding: 12px;
 }
 
+hr{
+    margin-left: 260px;
+}
 
+/*사이드 메뉴창*/
+ul {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    width: 232px;
+    background: #21222F;
+    height: 100%;
+    overflow: auto;
+    position: fixed; /*고정*/
+}
+
+li a {
+    text-decoration: none;
+    display: block;
+    padding: 20px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    color: #ffffff;
+    font-weight: bold;
+    background-color: #2F303E;
+}
+
+.aC {
+    padding: 7px;
+    margin-left: 25px;
+    background-color: #21222F;
+    color: #777777;
+}
+
+/*ul.hidden {
+    height: 0;              !* 처음에는 높이를 0으로 설정 *!
+    overflow: hidden;       !* 높이가 0일 때 내용이 보이지 않도록 설정 *!
+    transition: height 0.5s ease-out;  !* 높이를 바꿀 때 애니메이션 적용 *!
+}
+
+ul.visible {
+    height: auto;           !* 하위 메뉴가 펼쳐질 때 높이를 자동으로 맞춤 *!
+}*/
+
+.aside_button {
+    background-color: #2F303E;
+    width: 230px;
+    text-align: left;
+    color: white;
+    border: none;
+    padding: 20px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    cursor: pointer;
+    font-size: 16px;
+}

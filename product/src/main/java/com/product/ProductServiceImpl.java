@@ -17,6 +17,10 @@ public class ProductServiceImpl implements ProductService {
         dao.insert(vo);
     }
 
+    public void update(ProductVO vo) {
+        dao.update(vo);
+    }
+
     public void delete(ProductVO vo) {
         dao.delete(vo);
     }
@@ -25,7 +29,11 @@ public class ProductServiceImpl implements ProductService {
         return dao.select(vo);
     }
 
-    public List<ProductVO> selectOne(ProductVO vo) {
+    public int totalCount(String searchCondition, String searchKeywordR) {
+        return dao.totalCount(searchCondition, searchKeywordR);
+    }
+
+    public ProductVO selectOne(ProductVO vo) {
         return dao.selectOne(vo);
     }
 

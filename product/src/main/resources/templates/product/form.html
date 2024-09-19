@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<div  th:replace="include/top"></div>
+<div  th:replace="include/aside"></div>
 <style>
     .hidden { display: none;}
 </style>
@@ -7,67 +7,71 @@
 <section>
     <br>
 
-    <div align="center">
-        <h2> 입력하기 </h2>
+    <div>
+        <h2 style="margin-left: 265px; margin-top: 40px"> 입력하기 </h2>
     </div>
     <hr>
-    <br><br>
-    <div align="center">
+    <div>
         <form action="/product/insert" method="post" enctype="multipart/form-data">
-        <table width="420px" border="1px">
-            <tr><td colspan="2" height="210px" align="center"> <!--미리보기 이미지-->
-                <span id="noImageText">이미지가 등록되지 않았습니다.</span>
-                <img id="preview" src="" style="max-width: 100%; max-height: 210px; display: none;">
-            </td></tr>
-            <tr><td class="tdT"> 현장명 </td><td><input size="38px" type="text" name="SiteName"></td></tr>
+        <table width="1620px" border="1px">
             <tr>
+                <td class="tdT"> 이미지 <br> 미리보기 </td>
+                <td colspan="7" height="210px" align="center"> <!--미리보기 이미지-->
+                <span id="noImageText">이미지가 등록되지 않았습니다.</span>
+                <img id="preview" src="" style="margin:5px; max-width: 100%; max-height: 210px; display: none;">
+            </td></tr>
+
+            <tr>
+                <td class="tdT">타입</td>
+                <td align="left" colspan="3">
+                    <label>
+                        <input style="margin: 8px" type="radio" name="type" value="히든"> 히든 <br>
+                        <input style="margin: 8px" type="radio" name="type" value="캡"> 캡 <br>
+                        <input style="margin: 8px" type="radio" name="type" value="해당사항 없음"> 해당사항 없음
+                    </label>
+                </td>
+
                 <td class="tdT">이미지</td>
                 <td>
                     <input type="file" name="Image" id="uploadFile" onchange="previewImage(event)" style="display:none;">
-                    <label for ="uploadFile" style="cursor: pointer;">
+                    <label for ="uploadFile" style="cursor: pointer; margin-left: 10px;"  >
                         <span style="background-color: #000; color: #fff; padding: 5px 10px; border-radius: 5px;">이미지 등록하기</span>
                     </label>
                 </td>
+                <td class="tdT"> 창호넘버 </td><td> <input style="margin-left: 10px" name="WindowNumber" size="34px" type="text" value="ACW-2.3.4.5.6"> </td>
             </tr>
             <tr>
-                <td class="tdT">타입</td>
-                <td align="left">
-                    <label>
-                        <input type="radio" name="type" value="히든"> 히든 <br>
-                        <input type="radio" name="type" value="캡"> 캡 <br>
-                        <input type="radio" name="type" value="해당사항 없음"> 해당사항 없음
-                    </label>
-                </td>
-            </tr>
-            <tr><td class="tdT"> 제품코드목록 </td><td> <input type="text" name="ProductCodeList" size="35px" > </td></tr>
-            <tr><td class="tdT"> ITEM </td>
+                <td class="tdT"> 현장명 </td>
+                <td><input style="margin-left: 10px" size="34px" type="text" name="SiteName"></td>
+                <td class="tdT"> 제품코드목록 </td><td> <input style="margin-left: 10px" type="text" name="ProductCodeList" size="34px" > </td>
+                <td class="tdT"> ITEM </td>
                 <td>
-                    <select name="ITEM" id="itemSelect" onchange="toggleOtherInput()">
+                    <select  style="margin-left: 10px" name="ITEM" id="itemSelect" onchange="toggleOtherInput()">
                         <option value="MUL">MUL</option>
                         <option value="TRA">TRA</option>
                         <option value="기타">기타</option>
                     </select>
-                    <input type="text" id="otherInput" class="hidden" size="25.5px" placeholder="내용을 입력하세요.">
+                    <input type="text" id="otherInput" class="hidden" size="24.9px" placeholder="내용을 입력하세요.">
                 </td>
+                <td class="tdT"> 재단 사이즈 </td><td> <input style="margin-left: 10px" name="CutSize" size="34px" type="text">
             </tr>
-            <tr><td class="tdT"> 재단 사이즈 </td><td> <input name="CutSize" size="35px" type="text"> </td></tr>
-            <tr><td class="tdT"> 수량 </td><td> <input name="Quantity" size="35px" type="text"> </td></tr>
-            <tr><td class="tdT"> 창SET </td><td> <input name="WindowSET" size="35px" type="text"> </td></tr>
-            <tr><td class="tdT"> 단중 </td><td> <input name="SingleMiddle" size="35px" type="text"> </td></tr>
-            <tr><td class="tdT"> 중량 </td><td> <input name="Weight" size="35px" type="text"> </td></tr>
-            <tr><td class="tdT"> 창호넘버 </td><td> <input name="WindowNumber" size="35px" type="text" value="ACW-2.3.4.5.6"> </td></tr>
             <tr>
-                <td colspan="2" align="center" class="">
-                    <a href="/output"><input type="button" value="리스트" class="btnBlack"></a> &nbsp;
-                    <input type="submit" value="저장하기" class="btnBlack"> &nbsp;
-                    <input type="reset" value="초기화" class="btnBlack" onClick="clearPreview()">
-                </td>
+
+                </td><td class="tdT"> 수량 </td><td> <input style="margin-left: 10px" name="Quantity" size="34px" type="text"> </td>
+                <td class="tdT"> 창SET </td><td> <input style="margin-left: 10px" name="WindowSET" size="34px" type="text">
+            </td><td class="tdT"> 단중 </td><td> <input style="margin-left: 10px" name="SingleMiddle" size="33px" type="text"> </td>
+                <td class="tdT"> 중량 </td><td> <input style="margin-left: 10px" name="Weight" size="34px" type="text"> </td>
             </tr>
         </table>
-        </form>
+        </form><br>
+        <div align="right" style="margin-right: 32px">
+            <a href="/product/list?nowPage=0"><input type="button" value="리스트" class="btnWhite"></a> &nbsp;
+            <input type="submit" value="저장하기" class="btnBlack"> &nbsp;
+            <input type="reset" value="초기화" class="btnWhite" onClick="clearPreview()">
+        </div>
     </div>
+    <br>
 </section>
-
 
 <script>
     function previewImage(event){
@@ -109,6 +113,6 @@
         }
     }
 </script>
-
+<script src="/js/aside.js"></script>
 </body>
 </html>

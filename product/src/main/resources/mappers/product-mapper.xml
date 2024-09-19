@@ -12,9 +12,35 @@
     </insert>
 
     <select id="select">
-        select idx, SiteName, Type, ProductCodeList, ITEM, CutSize, Quantity, WindowSET, SingleMiddle,
-               Weight,  WindowNumber, Image as 'StrImage' from product order by idx
+        select idx, SiteName, Type, ProductCodeList, ITEM, CutSize,
+               Quantity, WindowSET, SingleMiddle, Weight, WindowNumber, Image as StrImage
+        from product
+        <if test="searchCondition == 'SiteName'" >
+            where SiteName like #{searchKeywordR}
+        </if>
+        <if test="searchCondition == 'Type'" >
+            where Type like #{searchKeywordR}
+        </if>
+        order by idx limit #{qs},#{pageSize}
+
     </select>
+
+
+    <select id="totalCount">
+        select count(*) from product
+        <if test="searchCondition == 'SiteName'" >
+            where SiteName like #{searchKeywordR}
+        </if>
+        <if test="searchCondition == 'Type'" >
+            where Type like #{searchKeywordR}
+        </if>
+    </select>
+
+    <insert id="update" parameterType="com.product.ProductVO">
+        update product set SiteName = #{SiteName}, Type = #{Type}, ProductCodeList = #{ProductCodeList}, ITEM = #{ITEM}, CutSize = #{CutSize},
+         Quantity = #{Quantity}, WindowSET = #{WindowSET}, SingleMiddle = #{SingleMiddle}, Weight = #{Weight}, WindowNumber = #{WindowNumber}, Image = #{StrImage}
+        where idx = #{idx}
+    </insert>
 
     <delete id="delete">
         delete from product where idx = #{idx}

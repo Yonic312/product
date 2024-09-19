@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<div  th:replace="include/top"></div>
+<div  th:replace="include/aside"></div>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -13,18 +13,42 @@
     </script>
 <section>
     <br>
-    <div align="center">
-    <h2> 목록보기 </h2>
+    <div>
+        <h2 style="margin-left: 265px; margin-top: 40px"> 목록보기([[${m}]]개)</h2>
     </div>
     <hr>
-    <br><br>
-    <div align="center">
+
+    <form action="/product/list">
+        <input type="hidden" name="nowPage" value="0">
+        <table style="margin-left: 265px;">
+            <tr>
+                <td width="150px" height="100%" bgcolor="#E5EBF5">
+                    <b>검색</b>
+                </td>
+                <td>&nbsp;<select name="searchCondition" th:value="선택하기" style="width: 120px; height: 30px">
+                    <option value="select" > 선택  </option>
+                    <option value="SiteName" > 현장명  </option>
+                    <option value="Type" > 타입  </option>
+                </select> &nbsp;
+                </td>
+                <td> <input type=text  name="searchKeyword" style="width: 420px; height: 24px" > &nbsp; </td>
+                <td> <input class="btnBlack" type=submit value="검색"> </td>
+                <td> &nbsp; <input class="btnWhite" type=reset value="초기화"> </td>
+            </tr>
+        </table>
+    </form>
+    <hr>
+
+    <div>
+        <!--totalCount : [[${m}]] | 총 페이지 수 : [[${vo.getTp()}]] | 페이지 크기 : [[${vo.getPageSize()}]] | <br>
+        현재 페이지 : [[${vo.getNowPage()}]] | 하단 시작 : [[${vo.getPs()}]] | 하단 끝 : [[${vo.getPe()}]]
+        -->
         <table border=1>
             <tr class="trL">
-                <td class="tdT" width="30px"> 번호 </td> <td class="tdT" width="150px"> 현장명 </td> <td class="tdT" width="100px"> 타입 </td>
-                <td class="tdT" width="90px"> 제품코드목록 </td><td class="tdT" width="150px"> ITEM </td> <td class="tdT" width="80px"> 재단 사이즈 </td>
-                <td class="tdT" width="30px"> 수량 </td><td class="tdT" width="40px"> 창SET </td><td class="tdT" width="40px"> 단중 </td>
-                <td class="tdT" width="40px"> 중량 </td> <td class="tdT" width="100px"> 창호넘버 </td> <td class="tdT"width="51px"> 이미지 </td> <td> 삭제 </td>
+                <td class="tdTL" width="30px"> 번호 </td> <td class="tdTL" width="250px"> 현장명 </td> <td class="tdTL" width="150px"> 타입 </td>
+                <td class="tdTL" width="130px"> 제품코드목록 </td><td class="tdTL" width="200px"> ITEM </td> <td class="tdTL" width="120px"> 재단 사이즈 </td>
+                <td class="tdTL" width="75px"> 수량 </td><td class="tdTL" width="85px"> 창SET </td><td class="tdTL" width="90px"> 단중 </td>
+                <td class="tdTL" width="75px"> 중량 </td> <td class="tdTL" width="150px"> 창호넘버 </td> <td class="tdTL"> 이미지 </td> <td> </td>
             </tr>
             <tr th:each="li, cnt : ${li}">
                 <td class="tdL"> <a th:href="@{/product/edit(idx=${li.idx})}"> [[${cnt.index+1}]] </a></td>
@@ -38,12 +62,51 @@
                 <td class="tdL"> [[${li.SingleMiddle}]] </td>
                 <td class="tdL"> [[${li.Weight}]] </td>
                 <td class="tdL"> [[${li.WindowNumber}]] </td>
-                <td class="tdL"> <img th:src="@{/product/file/{filename}(filename=${li.StrImage})}"  width="50" height="50"></td>
-                <td class="tdL"> <input type="button" value="삭제" th:onClick="'del(' + ${li.idx} + ')' "></td>
+                <td style="width:30px; height: 30px;"> <img th:src="@{/product/file/{filename}(filename=${li.StrImage})}"  width="55px" height="55px"></td>
+
+                <td style="padding: 5px"> <input type="button" value="삭제" th:onClick="'del(' + ${li.idx} + ')' "></td>
+            </tr>
+            <tr>
+
+                <td align="center" colspan="14">
+                    <block th:if ="${vo.getNowPage() == 0}">
+                        <button><<</button>
+                    </block>
+
+                    <block th:if ="${vo.getNowPage() != 0}">
+                    <a th:href = "@{/product/list(nowPage=0, searchCondition=${vo.searchCondition},searchKeyword=${vo.searchKeyword})}"><button><<</button></a>
+                    </block>
+
+                    <block th:if ="${vo.getNowPage() == 0}">
+                        <button><</button>
+                    </block>
+
+                    <block th:if ="${vo.getNowPage() != 0}">
+                    <a th:href = "@{/product/list(nowPage=${vo.getNowPage()-1}, searchCondition=${vo.searchCondition},searchKeyword=${vo.searchKeyword})}"><button><</button></a>
+                    </block>
+
+                    | Page [[${vo.getNowPage()+1}]] of [[${vo.getTp()}]] |
+                    <block th:if ="${vo.getNowPage()+1 == vo.getTp() || vo.getTp() == 0}"> <!-- 마지막 페이지거나, 토탈 페이지가 0이면 -->
+                        <button> > </button>
+                    </block>
+
+                    <block th:if ="${vo.getNowPage()+1 != vo.getTp() && vo.getTp() != 0}"> <!-- 마지막 페이지가 아니고, 토탈 페이지가 0아니면 -->
+                    <a th:href = "@{/product/list(nowPage=${vo.getNowPage()+1}, searchCondition=${vo.searchCondition},searchKeyword=${vo.searchKeyword})}"><button> > </button></a>
+                    </block>
+
+                    <block th:if ="${vo.getNowPage()+1 == vo.getTp() || vo.getTp() == 0}">
+                    <button> >> </button>
+                    </block>
+
+                    <block th:if ="${vo.getNowPage()+1 != vo.getTp() && vo.getTp() != 0}">
+                        <a th:href = "@{/product/list(nowPage=${vo.getTp}-1, searchCondition=${vo.searchCondition},searchKeyword=${vo.searchKeyword})}"><button> >> </button></a>
+                    </block>
+                </td>
             </tr>
         </table>
-
     </div>
+    <br>
 </section>
+<script src="/js/aside.js"></script>
 </body>
 </html>

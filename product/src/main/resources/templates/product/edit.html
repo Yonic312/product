@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<div  th:replace="include/top"></div>
+<div  th:replace="include/aside"></div>
 <style>
     .hidden { display: none;}
 </style>
@@ -7,65 +7,75 @@
 <section>
     <br>
 
-    <div align="center">
-        <h2> 수정하기 </h2>
+    <div>
+        <h2 style="margin-left: 265px; margin-top: 40px"> 수정하기 </h2>
     </div>
     <hr>
-    <br><br>
+    <br>
     <div align="center">
-        <form action="/product/insert" method="post" enctype="multipart/form-data">
-        <table width="420px" border="1px">
-            <tr  th:each="li : ${li}">
-                <td colspan="2" height="210px" align="center"> <!--미리보기 이미지-->
-                    <span id="noImageText">이미지가 등록되지 않았습니다.</span>
-                    <img id="preview" src="" style="max-width: 100%; max-height: 210px; display: none;">
-                </td>
-            </tr>
-            <tr><td class="tdT"> 현장명 </td><td><input size="38px" type="text" name="SiteName" th:value="${li.SiteName}"></td></tr>
-            <tr>
-                <td class="tdT">이미지</td>
-                <td>
-                    <input type="file" name="Image" id="uploadFile" onchange="previewImage(event)" style="display:none;">
-                    <label for ="uploadFile" style="cursor: pointer;">
-                        <span style="background-color: #000; color: #fff; padding: 5px 10px; border-radius: 5px;">이미지 등록하기</span>
-                    </label>
-                </td>
-            </tr>
-            <tr>
-                <td class="tdT">타입</td>
-                <td align="left">
-                    <label>
-                        <input type="radio" name="type" value="히든"> 히든 <br>
-                        <input type="radio" name="type" value="캡"> 캡 <br>
-                        <input type="radio" name="type" value="해당사항 없음"> 해당사항 없음
-                    </label>
-                </td>
-            </tr>
-            <tr><td class="tdT"> 제품코드목록 </td><td> <input type="text" name="ProductCodeList" size="35px" > </td></tr>
-            <tr><td class="tdT"> ITEM </td>
-                <td>
-                    <select name="ITEM" id="itemSelect" onchange="toggleOtherInput()">
-                        <option value="MUL">MUL</option>
-                        <option value="TRA">TRA</option>
-                        <option value="기타">기타</option>
-                    </select>
-                    <input type="text" id="otherInput" class="hidden" size="25.5px" placeholder="내용을 입력하세요.">
-                </td>
-            </tr>
-            <tr><td class="tdT"> 재단 사이즈 </td><td> <input name="CutSize" size="35px" type="text"> </td></tr>
-            <tr><td class="tdT"> 수량 </td><td> <input name="Quantity" size="35px" type="text"> </td></tr>
-            <tr><td class="tdT"> 창SET </td><td> <input name="WindowSET" size="35px" type="text"> </td></tr>
-            <tr><td class="tdT"> 단중 </td><td> <input name="SingleMiddle" size="35px" type="text"> </td></tr>
-            <tr><td class="tdT"> 중량 </td><td> <input name="Weight" size="35px" type="text"> </td></tr>
-            <tr><td class="tdT"> 창호넘버 </td><td> <input name="WindowNumber" size="35px" type="text" value="ACW-2.3.4.5.6"> </td></tr>
-            <tr>
-                <td colspan="2" align="center" class="">
-                    <a href="/output"><input type="button" value="리스트" class="btnBlack"></a> &nbsp;
-                    <input type="submit" value="저장하기" class="btnBlack"> &nbsp;
-                    <input type="reset" value="초기화" class="btnBlack" onClick="clearPreview()">
-                </td>
-            </tr>
-        </table>
+        <form action="/product/update" method="post" enctype="multipart/form-data">
+            <table width="420px" border="1px" th:each="li : ${li}">
+                <input type="hidden" name="idx" th:value="${li.idx}">
+                <tr>
+                    <td colspan="2" height="210px" align="center"> <!--미리보기 이미지-->
+                        <span id="noImageText" th:if="${li.StrImage == null}">이미지가 등록되지 않았습니다.</span> <!-- 이미지가 없을시 -->
+                        <img id="preview"
+                             th:if="${li.StrImage != null}"
+                             th:src="@{/product/file/{imageName}(imageName=${li.StrImage})}"
+                             style="max-width: 100%; max-height: 210px;">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="tdT"> 현장명 </td><td><input size="38px" type="text" name="SiteName" th:value="${li.SiteName}"></td>
+                </tr>
+
+                <tr>
+                    <td class="tdT">이미지</td>
+                    <td>
+                        <input type="file" name="Image" id="uploadFile" onchange="previewImage(event)" style="display:none;">
+                        <label for ="uploadFile" style="cursor: pointer;">
+                            <span style="background-color: #000; color: #fff; padding: 5px 10px; border-radius: 5px;">이미지 등록하기</span>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tdT">타입</td>
+                    <td align="left">
+                        <label>
+                            <input type="radio" name="type" value="히든" th:checked="${li.type == '히든'}"> 히든 <br>
+                            <input type="radio" name="type" value="캡" th:checked="${li.type == '캡'}"> 캡 <br>
+                            <input type="radio" name="type" value="해당사항 없음" th:checked="${li.type == '해당사항 없음'}"> 해당사항 없음
+                        </label>
+                    </td>
+                </tr>
+                <tr><td class="tdT"> 제품코드목록 </td><td> <input type="text" name="ProductCodeList" size="35px" th:value="${li.ProductCodeList}"> </td></tr>
+                <tr>
+                    <td class="tdT"> ITEM </td>
+                    <td>
+                        <select name="ITEM" id="itemSelect" onchange="toggleOtherInput()">
+                            <option value="MUL" th:selected="${li.ITEM == 'MUL'}">MUL</option>
+                            <option value="TRA" th:selected="${li.ITEM == 'TRA'}">TRA</option>
+                            <option value="기타" th:selected="${li.ITEM != 'MUL' and li.ITEM != 'TRA'}">기타</option>
+                        </select>
+                        <!-- 기타 선택 시 input이 보이도록 수정 -->
+                        <input type="text" id="otherInput" th:class="${li.ITEM != 'MUL' and li.ITEM != 'TRA'} ? '' : 'hidden'" size="25.5px" placeholder="내용을 입력하세요." th:value="${li.ITEM != 'MUL' and li.ITEM != 'TRA'} ? ${li.ITEM} : ''">
+                    </td>
+                </tr>
+                <tr><td class="tdT"> 재단 사이즈 </td><td> <input name="CutSize" size="35px" type="text" th:value="${li.CutSize}"> </td></tr>
+                <tr><td class="tdT"> 수량 </td><td> <input name="Quantity" size="35px" type="text" th:value="${li.Quantity}"> </td></tr>
+                <tr><td class="tdT"> 창SET </td><td> <input name="WindowSET" size="35px" type="text" th:value="${li.WindowSET}"> </td></tr>
+                <tr><td class="tdT"> 단중 </td><td> <input name="SingleMiddle" size="35px" type="text" th:value="${li.SingleMiddle}"> </td></tr>
+                <tr><td class="tdT"> 중량 </td><td> <input name="Weight" size="35px" type="text" th:value="${li.Weight}"> </td></tr>
+                <tr><td class="tdT"> 창호넘버 </td><td> <input name="WindowNumber" size="35px" type="text"  th:value="${li.WindowNumber}"> </td></tr>
+                <tr>
+                    <td colspan="2" align="center" class="">
+                        <a href="/output"><input type="button" value="리스트" class="btnBlack"></a> &nbsp;
+                        <input type="submit" value="수정하기" class="btnBlack"> &nbsp;
+                        <input type="reset" value="초기화" class="btnBlack" onClick="clearPreview()">
+                    </td>
+                </tr>
+            </table>
         </form>
     </div>
 </section>
@@ -94,23 +104,44 @@
     function clearPreview() {
         const preview = document.getElementById('preview');
         preview.src = '';
-        noImageText.style.display = 'block';
+        document.getElementById('noImageText').style.display = 'block';
     }
 
     function toggleOtherInput() {
         const select = document.getElementById('itemSelect');
         const otherInput = document.getElementById('otherInput');
+
         if (select.value === '기타') {
             otherInput.classList.remove('hidden');
-            otherInput.setAttribute('name', 'ITEM')
-            select.removeAttribute('name');
+            otherInput.setAttribute('name', 'ITEM');  // '기타' 선택 시 name 속성 설정
+            select.removeAttribute('name');           // select의 name 속성 제거
         } else {
             otherInput.classList.add('hidden');
-            otherInput.removeAttribute('name');
-            select.setAttribute('name', 'ITEM')
+            otherInput.removeAttribute('name');       // '기타'가 아닌 경우 input의 name 속성 제거
+            select.setAttribute('name', 'ITEM');      // select에 name 속성 추가
+        }
+    }
+
+    // 페이지 로드 시 select 값에 따라 input 필드 초기 상태 설정
+    window.onload = function() {
+        toggleOtherInput();
+    };
+
+    function toggleOtherInput() {
+        const select = document.getElementById('itemSelect');
+        const otherInput = document.getElementById('otherInput');
+
+        if (select.value === '기타') {
+            otherInput.classList.remove('hidden');
+            otherInput.setAttribute('name', 'ITEM');  // '기타' 선택 시 name 속성 설정
+            select.removeAttribute('name');           // select의 name 속성 제거
+        } else {
+            otherInput.classList.add('hidden');
+            otherInput.removeAttribute('name');       // '기타'가 아닌 경우 input의 name 속성 제거
+            select.setAttribute('name', 'ITEM');      // select에 name 속성 추가
         }
     }
 </script>
-
+<script src="/js/aside.js"></script>
 </body>
 </html>
